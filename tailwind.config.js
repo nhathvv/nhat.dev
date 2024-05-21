@@ -22,7 +22,7 @@ module.exports = {
         14: '3.5rem',
       },
       fontFamily: {
-        sans: ['var(--font-space-jetbrains-mono)', ...fontFamily.sans],
+        sans: ['var(--font-space-manrope)', ...fontFamily.sans],
       },
       colors: {
         primary: colors.pink,
