@@ -6,7 +6,7 @@ thumbnail: '/static/images/nest.jpg'
 tags: ['nest-js', 'mongo-db']
 draft: false
 summary: 'Bài viết này nhấn mạnh về việc hiểu rõ cách hoạt động của Nest.js trong phát triển ứng dụng Node.js. Chúng ta sẽ khám phá cách xây dựng một ứng dụng có cấu trúc rõ ràng, có khả năng mở rộng cao, dễ kiểm thử và bảo trì.'
-images: ['/static/images/banner.png']
+images: ['/static/images/nest.jpg']
 ---
 
 ## Giới thiệu
@@ -78,7 +78,7 @@ Lệnh này sẽ tạo ra một tập hợp các file và thư mục cần thi�
 
 → Khuyến khích sử dụng tuân theo cấu trúc dự án như trên để luôn giữ mã sạch, tái sử dụng, độc lập và khả năng tái sử dụng cao
 
-## Tìm hiểu về Module ?
+## Module ?
 
 Hiểu nôm na thì module chính là thành phần nhỏ nhất, đứng độc lập trên website của chúng ta, giúp tổ chức code, tái sử dụng một cách hiểu quả, dễ dàng test và maintain.
 
@@ -86,3 +86,47 @@ Hiểu nôm na thì module chính là thành phần nhỏ nhất, đứng độc
 
 - Phát triển của các modules có thể làm độc lập
 - On/off modules này không làm ảnh hưởng đến module kia(nếu các module không phụ thuộc vào nhau)
+
+### Tìm hiểu về module trong Nest.js
+
+Module có nhiệm vụ đóng gói những logic liên quan của các chức năng cần triển khai đến client một cách độc lập.Một module trong Nest là class được define với **@Module**
+
+Một file module cơ bản sẽ là như sau:
+
+```ts:users/users.module.ts
+import { Module } from '@nestjs/common';
+import { UsersController } from './users.controller';
+import { UsersService } from './users.service';
+
+@Module({
+  controllers: [UsersController],
+  providers: [UsersService],
+})
+export class UsersModule {}
+```
+
+Mình xin giải thích về một số thành phần chính trong file module:
+
+- **providers**: Nhiệm vụ là khởi tạo và cung cấp các service mà sẽ được controller trong module sử dụng đến
+- **controllers**: Khởi tạo những controller đã được xác định trong module
+- **imports**: Nhiệm vụ là import những thành phần của một module khác mà module sẽ sử dụng, ví dụ như là sử dụng **MongooseModule** để kết nối Nest.js với MongoDB,..
+- Ngoài ra, còn có **export**: Có nhiệm vụ là export các thành phần của provider và các module khác sẽ import và sử dụng
+
+Nest hỗ trợ tạo module bằng CLI, ví dụ nếu muốn tạo module users thì sử dụng câu lệnh sau:
+
+```
+$ nest g module users
+```
+
+Sau khi define module **users**, muốn sử dụng thì chúng ta cần phải import vào root module
+
+```ts:app.module.ts
+import { Module } from '@nestjs/common';
+import { UsersModule } from './users/users.module';
+
+@Module({
+  imports: [UsersModule],
+})
+export class AppModule {}
+
+```
