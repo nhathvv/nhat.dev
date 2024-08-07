@@ -1,0 +1,32 @@
+---
+title: 'Nodejs Backend Architecture - eCommerce'
+date: '2024-08-07'
+lastmod: '2024-08-07'
+thumbnail: '/static/images/nodejs.jpg'
+tags: ['nodejs', 'mongo-db']
+draft: false
+summary: ''
+images: ['/static/images/nest.jpg']
+---
+
+<TOCInline toc={props.toc} exclude="Introduction" />
+
+## Cấu trúc folder khởi tạo dự án ?
+
+```
+📦src
+ ┣ 📂configs
+ ┣ 📂controllers
+ ┣ 📂models
+ ┣ 📂services
+ ┣ 📂utils
+ ┗ 📜app.js
+```
+
+## Những packages cần thiết khi khởi tạo Project ?
+
+- **Morgan** : Dùng để xem các logger của các request.
+
+- **Helmet** : Helmet giúp bảo vệ ứng dụng Express của bạn bằng cách thiết lập các tiêu đề HTTP thích hợp
+
+- **Compression** : Compression giúp nén các response, cải thiện hiệu năng của ứng dụng
